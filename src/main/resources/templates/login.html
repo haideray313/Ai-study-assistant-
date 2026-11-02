@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login - Portal</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 350px; text-align: center; }
+        h2 { color: #2c3e50; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; background-color: white; }
+        button { width: 100%; background-color: #3498db; color: white; padding: 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 15px; font-weight: bold; }
+        button:hover { background-color: #2980b9; }
+        .error-box { background-color: #ffeaa7; color: #d63031; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; font-weight: bold; border: 1px solid #d63031; }
+        .success-box { background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 13px; font-weight: bold; border: 1px solid #c3e6cb; }
+        .links { margin-top: 20px; font-size: 14px; display: flex; flex-direction: column; gap: 8px; }
+        .links a { color: #3498db; text-decoration: none; font-weight: bold; }
+        .links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="login-card">
+    <h2>Portal Login</h2>
+
+    <div th:if="${param.error}" class="error-box">
+        Invalid username or password.
+    </div>
+    <div th:if="${param.registered}" class="success-box">
+        Account created successfully! Please sign in.
+    </div>
+    <div th:if="${param.resetSuccess}" class="success-box">
+        Password updated successfully! Please sign in.
+    </div>
+    <div th:if="${param.logout}" class="success-box">
+        You have been logged out securely.
+    </div>
+
+    <form action="/authenticate" method="POST" autocomplete="off">
+        <!-- Hidden dummy inputs to trap browser autofill -->
+        <input type="text" style="display:none" aria-hidden="true">
+        <input type="password" style="display:none" aria-hidden="true">
+
+        <input type="text" id="loginUser" name="username" placeholder="Username (lowercase a-z)"
+               pattern="^[a-z]{3,30}$" title="Username must be lowercase letters only (a-z)"
+               autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
+
+        <input type="password" id="loginPass" name="password" placeholder="Password"
+               autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" required>
+
+        <button type="submit">Sign In</button>
+    </form>
+
+    <div class="links">
+        <a href="/forgot-password">Forgot Password?</a>
+        <span>New user? <a href="/signup">Create Account</a></span>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const u = document.getElementById('loginUser');
+        const p = document.getElementById('loginPass');
+        u.value = '';
+        p.value = '';
+        setTimeout(() => {
+            u.value = '';
+            p.value = '';
+        }, 100);
+    });
+</script>
+</body>
+</html>

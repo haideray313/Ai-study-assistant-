@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contact - AI Study Assistant</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 0; }
+        .navbar { background-color: #2c3e50; padding: 15px; display: flex; gap: 20px; justify-content: center; }
+        .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 10px 15px; border-radius: 4px; }
+        .navbar a:hover { background-color: #34495e; }
+        .container { background: white; max-width: 500px; margin: 50px auto; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        h1 { color: #2c3e50; }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <a href="/home">Dashboard</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/logout">Log Out</a>
+</div>
+<div class="container">
+    <h1>Contact Support</h1>
+    <p>Logged in as: <strong th:text="${username}">User</strong></p>
+    <p>If you need assistance with your database queries or app features, reach out below:</p>
+    <p><strong>Email:</strong> support@studyassist.com</p>
+</div>
+</body>
+</html>
